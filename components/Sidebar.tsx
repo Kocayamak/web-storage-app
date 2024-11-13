@@ -3,19 +3,17 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { avatarPlaceholderUrl, navItems } from "@/constants";
+import { navItems } from "@/constants";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-const Sidebar = ({
-  fullName,
-  avatar,
-  email,
-}: {
+interface Props {
   fullName: string;
   avatar: string;
   email: string;
-}) => {
+}
+
+const Sidebar = ({ fullName, avatar, email }: Props) => {
   const pathname = usePathname();
   return (
     <aside className="sidebar">
@@ -74,7 +72,7 @@ const Sidebar = ({
 
       <div className="sidebar-user-info">
         <Image
-          src={avatarPlaceholderUrl}
+          src={avatar}
           alt="avatar"
           width={44}
           height={44}
