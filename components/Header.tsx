@@ -1,13 +1,16 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
+
+import { Button } from "@/components/ui/button";
+import Search from "@/components/Search";
+import FileUploader from "@/components/FileUploader";
 
 const Header = () => {
   return (
     <header className="header">
-      Search
+      <Search />
       <div className="header-wrapper">
-        FileUploader
+        <FileUploader />
         <form>
           <Button className="sign-out-button">
             <Image
