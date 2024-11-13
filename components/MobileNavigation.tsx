@@ -16,6 +16,7 @@ import { Separator } from "@/components/ui/separator";
 import { navItems } from "@/constants";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { signOutUser } from "@/lib/actions/user.action";
 
 interface Props {
   ownerId: string;
@@ -103,7 +104,10 @@ const MobileNavigation = ({
             <div className="flex flex-col justify-between gap-5 pb-5">
               <FileUploader />
 
-              <Button className="mobile-sign-out-button" onClick={() => {}}>
+              <Button
+                className="mobile-sign-out-button"
+                onClick={async () => await signOutUser()}
+              >
                 <Image
                   src="/assets/icons/logout.svg"
                   alt="logout"
