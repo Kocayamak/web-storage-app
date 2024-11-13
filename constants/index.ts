@@ -1,26 +1,26 @@
 export const navItems = [
   {
-    name: "Dashboard",
+    name: "Anasayfa",
     icon: "/assets/icons/dashboard.svg",
     url: "/",
   },
   {
-    name: "Documents",
+    name: "Dosyalar",
     icon: "/assets/icons/documents.svg",
     url: "/documents",
   },
   {
-    name: "Images",
+    name: "Resimler",
     icon: "/assets/icons/images.svg",
     url: "/images",
   },
   {
-    name: "Media",
+    name: "Medya",
     icon: "/assets/icons/video.svg",
     url: "/media",
   },
   {
-    name: "Others",
+    name: "Diğer",
     icon: "/assets/icons/others.svg",
     url: "/others",
   },
