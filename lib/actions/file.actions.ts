@@ -1,6 +1,5 @@
 "use server";
 
-import { UploadFileProps } from "@/types";
 import { createAdminClient } from "@/lib/appwrite";
 import { InputFile } from "node-appwrite/file";
 import { appwriteConfig } from "@/lib/appwrite/config";
@@ -13,6 +12,7 @@ export const uploadFile = async ({
   ownerId,
   accountId,
   path,
+  // eslint-disable-next-line no-undef
 }: UploadFileProps) => {
   const { storage, databases } = await createAdminClient();
 
