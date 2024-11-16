@@ -6,18 +6,58 @@ import { Button } from "@/components/ui/button";
 import { cn, convertFileToUrl, getFileType } from "@/lib/utils";
 import Image from "next/image";
 import Thumbnail from "@/components/Thumbnail";
+import { MAX_FILE_SIZE } from "@/constants";
+import { useToast } from "@/hooks/use-toast";
+import { uploadFile } from "@/lib/actions/file.actions";
+import { usePathname } from "next/navigation";
 
 interface Props {
   ownerId: string;
   accountId: string;
   className: string;
 }
-const FileUploader = ({ ownerId, accountıd, className }: Props) => {
+const FileUploader = ({ ownerId, accountId, className }: Props) => {
+  const path = usePathname();
+  const { toast } = useToast();
   const [files, setFiles] = useState<File[]>([]);
-  const onDrop = useCallback((acceptedFiles) => {
-    setFiles(acceptedFiles);
-  }, []);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const onDrop = useCallback(
+    async (acceptedFiles: File[]) => {
+      setFiles(acceptedFiles);
+
+      const uploadPromises = acceptedFiles.map(async (file) => {
+        if (file.size > MAX_FILE_SIZE) {
+          setFiles((prevFiles) =>
+            prevFiles.filter((f) => f.name !== file.name),
+          );
+
+          return toast({
+            description: (
+              <p className="body-2 text-white">
+                <span className="font-semibold">{file.name}</span> {""}
+                maksimum dosya büyüklüğünü aşıyor. Maksimum dosya büyüklüğü 50MB
+                olmalıdır.
+              </p>
+            ),
+            className: "error-toast",
+          });
+        }
+
+        return uploadFile({ file, ownerId, accountId, path }).then(
+          (uploadedFile) => {
+            if (uploadedFile) {
+              setFiles((prevFiles) =>
+                prevFiles.filter((f) => f.name !== file.name),
+              );
+            }
+          },
+        );
+      });
+
+      await Promise.all(uploadPromises);
+    },
+    [ownerId, accountId, path],
+  );
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   const handleRemoveFile = (
     e: React.MouseEvent<HTMLImageElement, MouseEvent>,
@@ -80,11 +120,6 @@ const FileUploader = ({ ownerId, accountıd, className }: Props) => {
             );
           })}
         </ul>
-      )}
-      {isDragActive ? (
-        <p>Drop the files here ...</p>
-      ) : (
-        <p>Drag 'n' drop some files here, or click to select files</p>
       )}
     </div>
   );
