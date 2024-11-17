@@ -235,3 +235,24 @@ export const getFileTypesParams = (type: string) => {
       return ["document"];
   }
 };
+
+export const getTypeName = (type: string) => {
+  let name = "";
+
+  switch (type) {
+    case "documents":
+      name = "Dosyalar";
+      break;
+    case "images":
+      name = "Resimler";
+      break;
+    case "media":
+      name = "Medya";
+      break;
+    case "others":
+      name = "Diğer, vs.";
+      break;
+  }
+
+  return name;
+};
