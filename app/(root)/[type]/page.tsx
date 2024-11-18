@@ -1,14 +1,18 @@
 import React from "react";
 import Sort from "@/components/Sort";
 import { getFiles } from "@/lib/actions/file.actions";
-import { getTypeName } from "@/lib/utils";
+import { getFileTypesParams, getTypeName } from "@/lib/utils";
 import { Models } from "node-appwrite";
 import Card from "@/components/Card";
 
-const Page = async ({ params }: SearchParamProps) => {
+const Page = async ({ searchParams, params }: SearchParamProps) => {
   const type = ((await params)?.type as string) || "";
+  const searchText = ((await searchParams)?.query as string) || "";
+  const sort = ((await searchParams)?.sort as string) || "";
 
-  const files = await getFiles();
+  const types = getFileTypesParams(type) as FileType[];
+
+  const files = await getFiles({ types, searchText, sort });
 
   return (
     <div className="page-container">
