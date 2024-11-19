@@ -188,21 +188,21 @@ export const constructDownloadUrl = (bucketFileId: string) => {
 export const getUsageSummary = (totalSpace: any) => {
   return [
     {
-      title: "Documents",
+      title: "Dosyalar",
       size: totalSpace.document.size,
       latestDate: totalSpace.document.latestDate,
       icon: "/assets/icons/file-document-light.svg",
       url: "/documents",
     },
     {
-      title: "Images",
+      title: "Resimler",
       size: totalSpace.image.size,
       latestDate: totalSpace.image.latestDate,
       icon: "/assets/icons/file-image-light.svg",
       url: "/images",
     },
     {
-      title: "Media",
+      title: "Medya",
       size: totalSpace.video.size + totalSpace.audio.size,
       latestDate:
         totalSpace.video.latestDate > totalSpace.audio.latestDate
@@ -212,7 +212,7 @@ export const getUsageSummary = (totalSpace: any) => {
       url: "/media",
     },
     {
-      title: "Others",
+      title: "Diğer, vs.",
       size: totalSpace.other.size,
       latestDate: totalSpace.other.latestDate,
       icon: "/assets/icons/file-other-light.svg",
